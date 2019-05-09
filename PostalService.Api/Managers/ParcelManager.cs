@@ -2,15 +2,12 @@
 using PostalService.Api.Models;
 using PostalService.Api.Services;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PostalService.Api.Managers
 {
     public interface IParcelManager
     {
-        ParcelResult FindParcel(Dimension dimension);
+        ParcelResult FindParcel(InputArgs inputArgs);
     }
     public class ParcelManager : IParcelManager
     {
@@ -24,10 +21,10 @@ namespace PostalService.Api.Managers
             _configService = configService ?? throw new ArgumentNullException(nameof(configService));
             _parcelInventory = new ParcelInventory(_parcelCollection);
         }
-        public ParcelResult FindParcel(Dimension dimension)
+        public ParcelResult FindParcel(InputArgs inputArgs)
         {
             ParcelResult result = null;
-            _parcelInventory.FirstParcelHandler.HandlePackage(dimension, ref result);
+            _parcelInventory.FirstParcelHandler.HandlePackage(inputArgs, ref result);
             return result;
         }
     }

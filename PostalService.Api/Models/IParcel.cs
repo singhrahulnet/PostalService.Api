@@ -1,12 +1,6 @@
-﻿using PostalService.Api.Domain;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace PostalService.Api.Models
+﻿namespace PostalService.Api.Models
 {
-    public interface IParcelProperties
+    public interface IParcel
     {
         int Priority { get; set; }
         string Name { get; set; }

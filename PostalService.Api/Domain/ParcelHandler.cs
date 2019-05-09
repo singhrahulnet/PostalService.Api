@@ -3,7 +3,7 @@ using PostalService.Api.Models;
 
 namespace PostalService.Api.Domain
 {
-    public abstract class ParcelHandler : IParcelProperties
+    public abstract class ParcelHandler : IParcel
     {
         protected ParcelHandler _nextParcel;
 
@@ -18,16 +18,16 @@ namespace PostalService.Api.Domain
         {
             _nextParcel = nextParcel;
         }
-        public virtual void HandlePackage(Dimension dimensions, ref ParcelResult result)
+        public virtual void HandlePackage(InputArgs inputArgs, ref ParcelResult result)
         {
             decimal cost = 0;
-            if (this.TryCalculateCost(dimensions, out cost))
+            if (this.TryCalculateCost(inputArgs, out cost))
             {
                 result = new ParcelResult(cost, Name);
             }
 
             //Cannot handle it. Passing it to a bigger guy
-            else if (_nextParcel != null) _nextParcel.HandlePackage(dimensions, ref result);
+            else if (_nextParcel != null) _nextParcel.HandlePackage(inputArgs, ref result);
         }        
     }
 }

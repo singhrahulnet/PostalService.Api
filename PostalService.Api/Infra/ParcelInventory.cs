@@ -1,6 +1,4 @@
 ﻿using PostalService.Api.Domain;
-using PostalService.Api.Models;
-using System.Collections.Generic;
 using System.Linq;
 
 namespace PostalService.Api.Infra

@@ -27,7 +27,7 @@ namespace PostalService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfigService, ConfigService>()
-                    .AddScoped<IParcelManager, ParcelManager>();
+                    .AddSingleton<IParcelManager, ParcelManager>();
                     
             services.AddSwaggerGen(c =>
             {

@@ -1,13 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
+﻿using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
-using PostalService.Api.Extensions;
 using PostalService.Api.Managers;
 using PostalService.Api.Models;
+using System;
 
 namespace PostalService.Api.Controllers
 {
@@ -25,16 +20,31 @@ namespace PostalService.Api.Controllers
         /// <summary>
         /// Retrieves cost of delivery based on weight and size of a parcel
         /// </summary>
-        /// <param name="dimension">Dimensions of a parcel</param>
+        /// <param name="weight"> Weight of the parcel in kg</param>
+        /// <param name="height">Height of the parcel in cm</param>
+        /// <param name="width">Width of the parcel in cm</param>
+        /// <param name="depth">Depth of the parcel in cm</param>
         /// <returns></returns>
-        [HttpPost()]
+        [HttpGet()]
         [ProducesResponseType(200, Type = typeof(ParcelResult))]
         [ProducesResponseType(404)]
-        public ActionResult GetParcelAndCost(Dimension dimension)
+        [ProducesResponseType(400)]
+        public ActionResult GetParcelAndCost(int weight, int height, int width, int depth)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
+            if (weight <= 0 || height <= 0 || width <= 0 || depth <= 0)
+            {
+                return BadRequest("Values must be more than 0");
+            }
+
+            var inputArgs = new InputArgs { Weight = weight, Height = height, Width = width, Depth = depth };
             try
-            {                
-                var response = _parcelManager.FindParcel(dimension);
+            {
+                var response = _parcelManager.FindParcel(inputArgs);
                 if (response != null) return Ok(response);
             }
             catch (Exception)

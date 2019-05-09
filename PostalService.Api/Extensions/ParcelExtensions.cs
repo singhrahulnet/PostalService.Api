@@ -1,34 +1,30 @@
 ﻿using PostalService.Api.Domain;
 using PostalService.Api.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace PostalService.Api.Extensions
 {
     public static class ParcelExtensions
     {
-        public static int Volume(this Dimension dimension)
+        public static int Volume(this InputArgs inputArgs)
         {
-            return dimension.Height * dimension.Width * dimension.Depth;
+            return inputArgs.Height * inputArgs.Width * inputArgs.Depth;
         }
-        public static bool TryCalculateCost(this ParcelHandler parcelHandler, Dimension dimensions, out decimal cost)
+        public static bool TryCalculateCost(this ParcelHandler parcelHandler, InputArgs inputArgs, out decimal cost)
         {
             cost = 0;
             if (parcelHandler.WeightLimit <= 0 && parcelHandler.VolumeLimit <= 0)
             {
-                cost = dimensions.Volume() * parcelHandler.Rate;
+                cost = inputArgs.Volume() * parcelHandler.Rate;
                 return true;
             }
-            if (parcelHandler.WeightLimit > 0 && dimensions.Weight > parcelHandler.WeightLimit)
+            if (parcelHandler.WeightLimit > 0 && inputArgs.Weight > parcelHandler.WeightLimit)
             {
-                cost = dimensions.Weight * parcelHandler.Rate;
+                cost = inputArgs.Weight * parcelHandler.Rate;
                 return true;
             }
-            if (parcelHandler.VolumeLimit > 0 && dimensions.Volume() < parcelHandler.VolumeLimit)
+            if (parcelHandler.VolumeLimit > 0 && inputArgs.Volume() < parcelHandler.VolumeLimit)
             {
-                cost = dimensions.Volume() * parcelHandler.Rate;
+                cost = inputArgs.Volume() * parcelHandler.Rate;
                 return true;
             }
             return false;
