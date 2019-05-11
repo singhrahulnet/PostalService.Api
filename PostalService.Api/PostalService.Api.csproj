@@ -7,8 +7,8 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
     <WarningsAsErrors>NU1605</WarningsAsErrors>
     <NoWarn>1701;1702;1591</NoWarn>
-    <DocumentationFile>bin\Debug\netcoreapp2.1\PostalService.Api.xml</DocumentationFile>
-    <OutputPath>bin\Debug\netcoreapp2.1\</OutputPath>
+    <DocumentationFile>bin\Debug\PostalService.Api.xml</DocumentationFile>
+    <OutputPath>bin\Debug\</OutputPath>
   </PropertyGroup>
 
   <ItemGroup>
