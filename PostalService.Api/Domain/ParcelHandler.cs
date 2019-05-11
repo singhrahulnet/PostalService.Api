@@ -1,4 +1,4 @@
-﻿using PostalService.Api.Extensions;
+﻿using PostalService.Api.Domain;
 using PostalService.Api.Models;
 
 namespace PostalService.Api.Domain
@@ -18,16 +18,19 @@ namespace PostalService.Api.Domain
         {
             _nextParcel = nextParcel;
         }
-        public virtual void HandlePackage(InputArgs inputArgs, ref ParcelResult result)
+        public virtual ParcelResult HandleParcel(InputArgs inputArgs)
         {
             decimal cost = 0;
+            ParcelResult result = null;
             if (this.TryCalculateCost(inputArgs, out cost))
             {
                 result = new ParcelResult(cost, Name);
             }
 
             //Cannot handle it. Passing it to a bigger guy
-            else if (_nextParcel != null) _nextParcel.HandlePackage(inputArgs, ref result);
-        }        
+            else if (_nextParcel != null) result = _nextParcel.HandleParcel(inputArgs);
+
+            return result;
+        }
     }
 }

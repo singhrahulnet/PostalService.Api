@@ -5,7 +5,6 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using PostalService.Api.Infra;
 using PostalService.Api.Managers;
-using PostalService.Api.Models;
 using PostalService.Api.Services;
 using Swashbuckle.AspNetCore.Swagger;
 using System;
@@ -27,8 +26,9 @@ namespace PostalService.Api
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddSingleton<IConfigService, ConfigService>()
-                    .AddSingleton<IParcelManager, ParcelManager>();
-                    
+                    .AddScoped<IParcelManager, ParcelManager>();
+
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new Info

@@ -12,7 +12,7 @@ namespace PostalService.Api.Managers
     public class ParcelManager : IParcelManager
     {
         private readonly IConfigService _configService;
-        private IParcelInventory _parcelInventory;
+        private readonly IParcelInventory _parcelInventory;
 
         private ParcelCollection _parcelCollection => _configService.GetSection<ParcelCollection>(nameof(ParcelCollection));
 
@@ -24,7 +24,14 @@ namespace PostalService.Api.Managers
         public ParcelResult FindParcel(InputArgs inputArgs)
         {
             ParcelResult result = null;
-            _parcelInventory.FirstParcelHandler.HandlePackage(inputArgs, ref result);
+            try
+            {
+                result = _parcelInventory.FirstParcelHandler.HandleParcel(inputArgs);
+            }
+            catch (Exception)
+            {
+                // Yell    Log    Catch  Throw
+            }
             return result;
         }
     }

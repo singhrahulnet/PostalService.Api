@@ -31,21 +31,16 @@ namespace PostalService.Api.Controllers
         [ProducesResponseType(400)]
         public ActionResult GetParcelAndCost(int weight, int height, int width, int depth)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             if (weight <= 0 || height <= 0 || width <= 0 || depth <= 0)
             {
                 return BadRequest("Values must be more than 0");
             }
 
-            var inputArgs = new InputArgs { Weight = weight, Height = height, Width = width, Depth = depth };
+            var inputArgs = new InputArgs(weight, height, width, depth);
             try
             {
-                var response = _parcelManager.FindParcel(inputArgs);
-                if (response != null) return Ok(response);
+                var result = _parcelManager.FindParcel(inputArgs);
+                if (result != null) return Ok(result);
             }
             catch (Exception)
             {

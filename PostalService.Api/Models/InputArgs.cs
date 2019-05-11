@@ -1,19 +1,14 @@
-﻿using System.ComponentModel.DataAnnotations;
-
-namespace PostalService.Api.Models
+﻿namespace PostalService.Api.Models
 {
     public class InputArgs
     {
-        [Required]
-        public int Weight { get; set; }
-
-        [Required]
-        public int Height { get; set; }
-
-        [Required]
-        public int Width { get; set; }
-
-        [Required]
-        public int Depth { get; set; }
+        public InputArgs(int weight, int height, int width, int depth)
+        {
+            Weight = weight; Height = height; Width = width; Depth = depth;
+        }
+        public int Weight { get; private set; }
+        public int Height { get; private set; }
+        public int Width { get; private set; }
+        public int Depth { get; private set; }
     }
 }
