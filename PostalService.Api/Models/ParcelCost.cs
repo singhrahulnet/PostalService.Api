@@ -1,8 +1,8 @@
 ﻿namespace PostalService.Api.Models
 {
-    public class ParcelResult
+    public class ParcelCost
     {
-        public ParcelResult(decimal cost, string parcelName)
+        public ParcelCost(decimal cost, string parcelName)
         {
             CostOfDelivery = cost;
             ParcelName = parcelName;

@@ -26,21 +26,21 @@ namespace PostalService.Api.Controllers
         /// <param name="depth">Depth of the parcel in cm</param>
         /// <returns></returns>
         [HttpGet()]
-        [ProducesResponseType(200, Type = typeof(ParcelResult))]
+        [ProducesResponseType(200, Type = typeof(ParcelCost))]
         [ProducesResponseType(404)]
         [ProducesResponseType(400)]
-        public ActionResult GetParcelAndCost(int weight, int height, int width, int depth)
+        public ActionResult GetParcelCost(int weight, int height, int width, int depth)
         {
             if (weight <= 0 || height <= 0 || width <= 0 || depth <= 0)
             {
                 return BadRequest("Values must be more than 0");
             }
 
-            var inputArgs = new InputArgs(weight, height, width, depth);
+            var parcel = new Parcel(weight, height, width, depth);
             try
             {
-                var result = _parcelManager.FindParcel(inputArgs);
-                if (result != null) return Ok(result);
+                var parcelCost = _parcelManager.GetCost(parcel);
+                if (parcelCost != null) return Ok(parcelCost);
             }
             catch (Exception)
             {

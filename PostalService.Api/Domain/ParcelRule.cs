@@ -1,13 +1,13 @@
-﻿using PostalService.Api.Domain;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
-namespace PostalService.Api.Infra
+namespace PostalService.Api.Domain
 {
-    public class ParcelCollection
+    public class ParcelRuleCollection
     {
-        public List<Parcel> Parcels { get; set; }
+        public IEnumerable<ParcelRule> ParcelRules { get; set; }
+        public bool IsRuleSetup { get; set; }
     }
-    public class Parcel : ParcelHandler
+    public class ParcelRule : ParcelRuleBase
     {
         public override int Priority { get; set; }
         public override string Name { get; set; }

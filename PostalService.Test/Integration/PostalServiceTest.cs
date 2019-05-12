@@ -48,12 +48,12 @@ namespace PostalService.Test.Integration
             var sut = new ParcelController(_parcelManager);
 
             //When
-            var actual = sut.GetParcelAndCost(weight, height, width, depth);
+            var actual = sut.GetParcelCost(weight, height, width, depth);
 
             //Then
             var result = Assert.IsType<OkObjectResult>(actual);
-            var parcelResult = Assert.IsType<ParcelResult>(result.Value);
-            Assert.Equal(cost, parcelResult.CostOfDelivery);
+            var parcelCost = Assert.IsType<ParcelCost>(result.Value);
+            Assert.Equal(cost, parcelCost.CostOfDelivery);
         }
     }
 }

@@ -1,8 +1,8 @@
 ﻿namespace PostalService.Api.Models
 {
-    public class InputArgs
+    public class Parcel
     {
-        public InputArgs(int weight, int height, int width, int depth)
+        public Parcel(int weight, int height, int width, int depth)
         {
             Weight = weight; Height = height; Width = width; Depth = depth;
         }
