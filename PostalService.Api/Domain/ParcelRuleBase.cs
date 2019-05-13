@@ -2,8 +2,8 @@
 using PostalService.Api.Models;
 
 namespace PostalService.Api.Domain
-{    
-    public abstract class ParcelRuleBase : IParcelRule
+{
+    public abstract class ParcelRuleBase
     {
         protected ParcelRuleBase _nextRule;
 
